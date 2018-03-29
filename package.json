@@ -17,7 +17,12 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-center": "^1.1.1",
+    "react-modal": "^3.3.2",
+    "react-sizeme": "^2.4.2",
+    "styled-components": "^3.2.3"
+  },
   "peerDependencies": {
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
