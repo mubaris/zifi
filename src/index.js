@@ -8,20 +8,20 @@ import Modal from 'react-modal'
 import styled from 'styled-components'
 import sizeMe from 'react-sizeme'
 
-// Story.propTypes = {
-//   stories: PropTypes.any,
-//   containerWidth: PropTypes.number,
-// }
-
 const CloseButton = styled.button`
-  display:block;
+  display: block;
   border-radius: 50%;
-  background-color: #aaa;
+  border: none;
+  background-color: #444;
   color: #fff;
   padding: 0.4rem;
   height: 2rem;
   width: 2rem;
   opacity: 0.4;
+  font-size: 110%;
+  :hover {
+    opacity: 1;
+  }
 `
 
 const FullDiv = styled.div`
@@ -37,17 +37,33 @@ const FullDiv = styled.div`
   }
 `
 
+export const StoryTrigger = (props) => {
+  return (
+    <div>
+      {props.children}
+    </div>
+  )
+}
+
+export const StoryItem = (props) => {
+  return (
+    <div>
+      {props.children}
+    </div>
+  )
+}
+
 class Story extends Component {
   constructor() {
     super();
     this.state = {
       showModal: false,
-      item: 0,
+      item: 1,
     }
 
     this.handleOpenModal = this.handleOpenModal.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this)
     this.nextStory = this.nextStory.bind(this)
     this.prevStory = this.prevStory.bind(this)
   }
@@ -55,21 +71,21 @@ class Story extends Component {
     Modal.setAppElement(this.props.zifiId)
   }
   nextStory() {
-    if (this.state.item + 1 < this.props.stories.length) {
+    if (this.state.item + 1 < this.props.children.length) {
       this.setState({ item: this.state.item + 1 })
     } else {
       this.handleCloseModal()
     }
   }
   prevStory() {
-    if (this.state.item > 0) {
+    if (this.state.item > 1) {
       this.setState({ item: this.state.item - 1 })
     } else {
       this.handleCloseModal()
     }
   }
   handleOpenModal() {
-    this.setState({ showModal: true, item: 0 })
+    this.setState({ showModal: true, item: 1 })
   }
 
   handleCloseModal() {
@@ -84,21 +100,30 @@ class Story extends Component {
     }
   }
   render() {
+    const children = React.Children.toArray(this.props.children)
     return (
       <div id="zificontainer">
-        <button onClick={this.handleOpenModal}>Trigger Modal</button>
+        <div onClick={this.handleOpenModal}>
+          {children[0]}
+        </div>
          <Modal
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example"
         >
-          <CloseButton onClick={this.handleCloseModal}>X</CloseButton>
+          <CloseButton onClick={this.handleCloseModal}><strong>X</strong></CloseButton>
           <FullDiv onClick={this.handleClick}>
-            { this.props.stories[this.state.item] }
+            { children[this.state.item] }
           </FullDiv>
         </Modal>
       </div>
     )
   }
+}
+
+Story.propTypes = {
+  zifiId: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
+  size: PropTypes.object,
 }
 
 Modal.defaultStyles = {
