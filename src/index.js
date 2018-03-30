@@ -5,8 +5,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Modal from 'react-modal'
-import styled from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 import sizeMe from 'react-sizeme'
+import Fullscreen from 'react-full-screen'
+// import './styles.css'
+
+// const StyledFullscreen = styled(Fullscreen)`
+//   .closer {
+//     padding: 20px;
+//   }
+// `
 
 const CloseButton = styled.button`
   display: block;
@@ -37,6 +45,8 @@ const FullDiv = styled.div`
   }
 `
 
+const UpDiv = styled.div``
+
 export const StoryTrigger = (props) => {
   return (
     <div>
@@ -47,9 +57,9 @@ export const StoryTrigger = (props) => {
 
 export const StoryItem = (props) => {
   return (
-    <div>
+    <UpDiv>
       {props.children}
-    </div>
+    </UpDiv>
   )
 }
 
@@ -59,6 +69,7 @@ class Story extends Component {
     this.state = {
       showModal: false,
       item: 1,
+      isFull: false,
     }
 
     this.handleOpenModal = this.handleOpenModal.bind(this)
@@ -85,11 +96,11 @@ class Story extends Component {
     }
   }
   handleOpenModal() {
-    this.setState({ showModal: true, item: 1 })
+    this.setState({ isFull: true, showModal: true, item: 1 })
   }
 
   handleCloseModal() {
-    this.setState({ showModal: false })
+    this.setState({ isFull: false, showModal: false })
   }
   handleClick(e) {
     const perc = e.screenX * 100 / this.props.size.width
@@ -106,19 +117,32 @@ class Story extends Component {
         <div onClick={this.handleOpenModal}>
           {children[0]}
         </div>
-         <Modal
+        <Modal
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example"
         >
-          <CloseButton onClick={this.handleCloseModal}><strong>X</strong></CloseButton>
-          <FullDiv onClick={this.handleClick}>
-            { children[this.state.item] }
-          </FullDiv>
+          <Fullscreen
+            enabled={this.state.isFull}
+            onChange={isFull => this.setState({isFull})}
+          >
+            <CloseButton onClick={this.handleCloseModal} className="closer">
+              <strong>X</strong>
+            </CloseButton>
+            <FullDiv onClick={this.handleClick}>
+              { children[this.state.item] }
+            </FullDiv>
+          </Fullscreen>
         </Modal>
       </div>
     )
   }
 }
+
+injectGlobal`
+  .fullscreen-enabled .closer {
+    margin: 20px;
+  }
+`
 
 Story.propTypes = {
   zifiId: PropTypes.string.isRequired,
