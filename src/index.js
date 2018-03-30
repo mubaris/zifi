@@ -45,8 +45,6 @@ const FullDiv = styled.div`
   }
 `
 
-const UpDiv = styled.div``
-
 export const StoryTrigger = (props) => {
   return (
     <div>
@@ -57,9 +55,9 @@ export const StoryTrigger = (props) => {
 
 export const StoryItem = (props) => {
   return (
-    <UpDiv>
+    <div className="story-content">
       {props.children}
-    </UpDiv>
+    </div>
   )
 }
 
@@ -141,6 +139,18 @@ class Story extends Component {
 injectGlobal`
   .fullscreen-enabled .closer {
     margin: 20px;
+  }
+  .fullscreen-enabled .story-content {
+    margin-top: -10%;
+  }
+  .fullscreen {
+    height: 100%;
+    width: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    .fullscreen-enabled .story-content {
+      margin-top: -40%;
+    }
   }
 `
 
