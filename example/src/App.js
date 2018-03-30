@@ -2,26 +2,40 @@ import React, { Component } from 'react'
 
 import Story, { StoryTrigger, StoryItem } from 'zifi'
 
-// const stories = [
-//   <div key="1">
-//     <img alt="Flexbox" src="https://images.unsplash.com/photo-1522133474647-57fc4706cb0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&ixid=eyJhcHBfaWQiOjF9&s=ff0529da7d5969778580656a645e8532" />
-//   </div>,
-//   <div key="2">
-//     Something else
-//   </div>,
-//   <div key="3">
-//     <img alt="Flexbox" src="https://internetingishard.com/html-and-css/flexbox/flexbox-vs-floats-418bf3.png" />
-//   </div>,
-//   <div key="4">
-//     Flexbox is awesome
-//   </div>,
-//   <div key="5">
-//     <img alt="Flexbox" src="https://internetingishard.com/html-and-css/flexbox/footer-flexible-items-static-widths-af0a32.png" />
-//   </div>,
-//   <div key="6">
-//     Finally
-//   </div>,
-// ]
+import styled, { injectGlobal } from 'styled-components'
+
+const Holder = styled.div`
+  padding: 5px;
+  display: inline-flex;
+  flex-direction: row wrap;
+  border: 2px solid #444;
+  border-radius: 10px;
+  h4 {
+    padding: 10px;
+  }
+`
+
+const Prime = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(https://pi.tedcdn.com/r/tedideas.files.wordpress.com/2017/03/frugal_innovation.png);
+`
+
+// const ImageContainer = styled.img`
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+// `
+
+// const TextContainer = styled.div`
+//   z-index: 100;
+//   position: absolute;
+//   color: white;
+//   font-size: 24px;
+//   font-weight: bold;
+//   left: 150px;
+//   top: 350px;
+// `
 
 export default class App extends Component {
   render () {
@@ -29,13 +43,20 @@ export default class App extends Component {
       <div>
         <Story zifiId="#root">
           <StoryTrigger>
-            <button>Some Button</button>
-            <p>More Stuff</p>
+            <Holder>
+              <h4>2018's Most Innovative Companies</h4>
+              <img 
+                alt="Tim Cook" 
+                src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_80%2Cw_300/MTE5NDg0MDU1MzM0OTc5MDg3/tim-cook-20967297-1-402.jpg" 
+                height="100px"
+                width="100px"
+              />
+            </Holder>
           </StoryTrigger>
           <StoryItem>
-            <img alt="Flexbox" 
-              src="https://images.unsplash.com/photo-1522133474647-57fc4706cb0e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&ixid=eyJhcHBfaWQiOjF9&s=ff0529da7d5969778580656a645e8532"
-            />
+            <Prime>
+              <h3>2018's Most Innovative Companies are here 🌍 🚀</h3>
+            </Prime>
           </StoryItem>
           <StoryItem>
             Something else
@@ -57,3 +78,9 @@ export default class App extends Component {
     )
   }
 }
+
+injectGlobal`
+  body {
+    margin: 2%;
+  }
+`

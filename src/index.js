@@ -111,7 +111,7 @@ class Story extends Component {
   render() {
     const children = React.Children.toArray(this.props.children)
     return (
-      <div id="zificontainer">
+      <div>
         <div onClick={this.handleOpenModal}>
           {children[0]}
         </div>
@@ -123,12 +123,14 @@ class Story extends Component {
             enabled={this.state.isFull}
             onChange={isFull => this.setState({isFull})}
           >
-            <CloseButton onClick={this.handleCloseModal} className="closer">
-              <strong>X</strong>
-            </CloseButton>
-            <FullDiv onClick={this.handleClick}>
-              { children[this.state.item] }
-            </FullDiv>
+              <div className="closer">
+              <CloseButton onClick={this.handleCloseModal}>
+                <strong>X</strong>
+              </CloseButton>
+              </div>
+              <FullDiv onClick={this.handleClick}>
+                { children[this.state.item] }
+              </FullDiv>
           </Fullscreen>
         </Modal>
       </div>

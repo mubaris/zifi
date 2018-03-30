@@ -18,15 +18,16 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "react-full-screen": "^0.2.2",
-    "react-modal": "^3.3.2",
-    "react-sizeme": "^2.4.2",
-    "styled-components": "^3.2.3"
+    
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "react-full-screen": "^0.2.2",
+    "react-modal": "^3.3.2",
+    "react-sizeme": "^2.4.2",
+    "styled-components": "^3.2.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
