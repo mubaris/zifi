@@ -26,14 +26,15 @@ export default {
     'react-dom',
     'prop-types',
     'react-full-screen',
-    'react-modal',
+    'rodal',
     'react-sizeme',
     'styled-components'
   ],
   plugins: [
     external(),
     postcss({
-      modules: true
+      // modules: true
+      extensions: [ '.css' ]
     }),
     url(),
     babel({
