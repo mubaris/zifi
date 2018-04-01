@@ -2,6 +2,8 @@
 
 > Make Stories everywhere using React ♥
 
+<img src="zifi.png" alt="Zifi Logo" height="200" width="200">
+
 [![NPM](https://img.shields.io/npm/v/zifi.svg)](https://www.npmjs.com/package/zifi) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
