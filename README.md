@@ -29,6 +29,8 @@ Inspired by ProductHunt Sip and Medium Series 😍
 
 Clicking on `Story.Trigger` triggers the `Story`. Each `Story.Item` will displayed according to user interaction.
 
+30% of the left side will display previous story and 70% of the right side will display next story.
+
 ```jsx
 import React, { Component } from 'react'
 
