@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Rodal from 'rodal'
+// import Rodal from './rodal.js'
 import Fullscreen from 'react-full-screen'
+// import Fullscreen from './fullscreen.js'
 
+// import './rodal.css'
 import 'rodal/lib/rodal.css'
 
 const modalStyles = {
@@ -203,7 +206,7 @@ Story.Item = StoryItem
 
 Story.propTypes = {
   fullScreen: PropTypes.bool,
-  children: PropTypes.any.required,
+  children: PropTypes.any.isRequired,
 }
 
 export default Story
