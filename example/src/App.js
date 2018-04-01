@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import Story from 'zifi'
 
 
-// import styled, { injectGlobal } from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 
 // const Holder = styled.div`
 //   padding: 5px;
@@ -81,21 +81,52 @@ import Story from 'zifi'
 //   }
 // }
 
-// injectGlobal`
-//   body {
-//     margin: 2%;
-//   }
-// `
+
+const Holder = styled.div`
+  padding: 5px;
+  display: inline-flex;
+  flex-direction: row wrap;
+  border: 2px solid #444;
+  border-radius: 10px;
+  h4 {
+    padding: 10px;
+  }
+`
+
+const Title = styled.div`
+	color: white;
+`
+
+injectGlobal`
+  body {
+    margin: 2%;
+  }
+`
 
 export default class App extends Component {
   render() {
     return (
       <Story>
-        <Story.Trigger>Blah</Story.Trigger>
-        <Story.Item backgroundImage="4692.jpg">
-        	Something
+        <Story.Trigger>
+        	<Holder>
+            <h4>2018's Most Innovative Companies</h4>
+            <img 
+              alt="Tim Cook" 
+              src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_80%2Cw_300/MTE5NDg0MDU1MzM0OTc5MDg3/tim-cook-20967297-1-402.jpg" 
+              height="100px"
+              width="100px"
+            />
+          </Holder>
+        </Story.Trigger>
+        <Story.Item
+        	backgroundImage="url(https://pi.tedcdn.com/r/tedideas.files.wordpress.com/2017/03/frugal_innovation.png)"
+        	blur="10px"
+        >
+        	<Title>
+        		<h1>2018's Most Innovative Companies are here <span role="img" >🌍</span> <span role="img" >🚀</span></h1>
+        	</Title>
         </Story.Item>
-        <Story.Item>Something 2</Story.Item>
+        <Story.Item backgroundImage="linear-gradient(135deg, #fad961 0%,#f76b1c 100%)" >Something 2</Story.Item>
       </Story>
     );
   }

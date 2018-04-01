@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled, { injectGlobal } from 'styled-components'
 // import Rodal from './Rodal'
@@ -44,7 +45,27 @@ const CloseButton = styled.button`
 const FullDiv = styled.div`
   height: 100%;
   width: 100%;
-  background: ${props => props.backgroundImage ? `url(${props.backgroundImage})` : ''}
+`
+
+const BgDiv = styled.div`
+  background-image: ${props => props.backgroundImage ? props.backgroundImage : ''};
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-filter: ${props => props.backgroundImage && props.blur ? `blur(${props.blur})` : ''};
+  -moz-filter: ${props => props.backgroundImage && props.blur ? `blur(${props.blur})` : ''};
+  -o-filter: ${props => props.backgroundImage && props.blur ? `blur(${props.blur})` : ''};
+  -ms-filter: ${props => props.backgroundImage && props.blur ? `blur(${props.blur})` : ''};
+  filter: ${props => props.backgroundImage && props.blur ? `blur(${props.blur})` : ''};
+  transform: ${props => props.blur ? 'scale(1.05)' : ''};
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  @media only screen and (max-device-width: 768px) {
+    transform: ${props => props.blur ? 'scale(1.1)' : ''};
+  }
 `
 
 // background: ${this.props.backgroundImage}
@@ -55,10 +76,15 @@ const PaddingDiv = styled.div`
 
 const CenterDiv = styled.div`
   height: 80%;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  @media only screen and (max-device-width: 768px) {
+    height: 90%;
+    margin: auto;
+  }
 `
 
 const StoryTrigger = (props) => {
@@ -85,6 +111,8 @@ class Story extends Component {
       index: 0,
       isFull: false,
     }
+
+    this.targetScreen = ''
 
     this.handleOpenModal = this.handleOpenModal.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
@@ -113,7 +141,7 @@ class Story extends Component {
     }
   }
   prevStory() {
-    if (this.state.index > 1) {
+    if (this.state.index > 0) {
       this.setState({ index: this.state.index - 1 })
     } else {
       this.handleCloseModal()
@@ -129,18 +157,17 @@ class Story extends Component {
   }
 
   handleClick(e) {
-    const perc = e.screenX
-    console.log(perc)
-    this.nextStory()
-    // if (perc > 30) {
-    //   this.nextStory()
-    // } else {
-    //   this.prevStory()
-    // }
+    const perc = e.clientX * 100 / ReactDOM.findDOMNode(this.targetScreen).offsetWidth
+    if (perc > 30) {
+      this.nextStory()
+    } else {
+      this.prevStory()
+    }
   }
 
   render() {
     const backgroundImage = this.items[this.state.index].props.backgroundImage
+    const blur = this.items[this.state.index].props.blur
     return (
       <div>
         <div onClick={this.handleOpenModal}>
@@ -156,8 +183,10 @@ class Story extends Component {
             width={100} height={100} measure="%"
             showCloseButton={false} animation="slideUp"
             showMask={false} customStyles={modalStyles}
+            ref={el => (this.targetScreen = el)}
           >
-          <FullDiv backgroundImage={backgroundImage} onClick={this.handleClick}>
+          <FullDiv onClick={this.handleClick}>
+            <BgDiv backgroundImage={backgroundImage} blur={blur} />
             <PaddingDiv>
               <CloseButton onClick={this.handleCloseModal}>
                 <strong>X</strong>
