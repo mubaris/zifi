@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import styled, { injectGlobal } from 'styled-components'
-// import Rodal from './Rodal'
+import styled from 'styled-components'
 import Rodal from 'rodal'
 import Fullscreen from 'react-full-screen'
 
 import 'rodal/lib/rodal.css'
-
-// import './Rodal.css'
 
 const modalStyles = {
   padding: 0
@@ -28,19 +25,6 @@ const CloseButton = styled.button`
     opacity: 1;
   }
 `
-
-// const FullDiv = styled.div`
-//   height: 100%;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   > img {
-//     display: block;
-//     max-height: 100%;
-//     max-width:100%;
-//   }
-// `
 
 const FullDiv = styled.div`
   height: 100%;
@@ -67,8 +51,6 @@ const BgDiv = styled.div`
     transform: ${props => props.blur ? 'scale(1.1)' : ''};
   }
 `
-
-// background: ${this.props.backgroundImage}
 
 const PaddingDiv = styled.div`
   padding: 2% 0 0 2%;
@@ -101,6 +83,11 @@ const StoryItem = (props) => {
       {props.children}
     </div>
   )
+}
+
+StoryItem.propTypes = {
+  backgroundImage: PropTypes.string,
+  blur: PropTypes.string,
 }
 
 class Story extends Component {
@@ -149,11 +136,19 @@ class Story extends Component {
   }
 
   handleOpenModal() {
-    this.setState({ isFull: true, showModal: true, index: 0 })
+    if (this.props.fullScreen) {
+      this.setState({ isFull: true, showModal: true, index: 0 })
+    } else {
+      this.setState({ showModal: true, index: 0 })
+    }
   }
 
   handleCloseModal() {
-    this.setState({ isFull: false, showModal: false })
+    if (this.props.fullScreen) {
+      this.setState({ isFull: false, showModal: false })
+    } else {
+      this.setState({ showModal: false })
+    }
   }
 
   handleClick(e) {
@@ -205,5 +200,10 @@ class Story extends Component {
 
 Story.Trigger = StoryTrigger
 Story.Item = StoryItem
+
+Story.propTypes = {
+  fullScreen: PropTypes.bool,
+  children: PropTypes.any.required,
+}
 
 export default Story
