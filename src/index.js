@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Rodal from 'rodal'
 // import Rodal from './rodal.js'
 import Fullscreen from 'react-full-screen'
+import { Line } from 'rc-progress'
 // import Fullscreen from './fullscreen.js'
 
 // import './rodal.css'
@@ -67,10 +68,14 @@ const CenterDiv = styled.div`
   align-items: center;
   margin: auto;
   @media only screen and (max-device-width: 768px) {
-    height: 90%;
+    height: 85%;
     margin: auto;
   }
 `
+
+const progressStyles = {
+  verticalAlign: 'top'
+}
 
 const StoryTrigger = (props) => {
   return (
@@ -166,6 +171,7 @@ class Story extends Component {
   render() {
     const backgroundImage = this.items[this.state.index].props.backgroundImage
     const blur = this.items[this.state.index].props.blur
+    const percent = (this.state.index + 1) * 100 / (this.items.length)
     return (
       <div>
         <div onClick={this.handleOpenModal}>
@@ -184,6 +190,14 @@ class Story extends Component {
             ref={el => (this.targetScreen = el)}
           >
           <FullDiv onClick={this.handleClick}>
+            { this.props.progress && <Line 
+              percent={percent} 
+              strokeWidth={this.props.progressWidth}
+              strokeColor={this.props.progressColor} 
+              strokeLinecap={this.props.progressLinecap}
+              trailColor={this.props.progressTrailColor} 
+              style={progressStyles}
+            />}
             <BgDiv backgroundImage={backgroundImage} blur={blur} />
             <PaddingDiv>
               <CloseButton onClick={this.handleCloseModal}>
@@ -207,6 +221,20 @@ Story.Item = StoryItem
 Story.propTypes = {
   fullScreen: PropTypes.bool,
   children: PropTypes.any.isRequired,
+  progress: PropTypes.bool,
+  progressColor: PropTypes.string,
+  progressWidth: PropTypes.number,
+  progressLinecap: PropTypes.string,
+  progressTrailColor: PropTypes.string
+}
+
+Story.defaultProps = {
+  fullScreen: false,
+  progress: true,
+  progressColor: "#2db7f5",
+  progressWidth: 1,
+  progressLinecap: "square",
+  progressTrailColor: "#2db7f500"
 }
 
 export default Story

@@ -93,6 +93,12 @@ class Example extends Component {
 Property|Type|Default|Description
 ---|---|---|---
 fullScreen|bool|false|whether to show stories in full screen
+progress|bool|true|whether to show progress bar
+progressColor|string|#2db7f5|stroke color of the progress bar
+progressWidth|number|1|width of the progress bar
+progressLinecap|string|round|The shape to be used at the end of the progress bar, can be `butt`, `square` or `round`.
+progressTrailColor|string|#2db7f500|Color for lighter trail stroke underneath the actual progress path.
+
 
 ### Story.Item
 
