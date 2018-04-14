@@ -85,6 +85,8 @@ const StoryTrigger = (props) => {
   )
 }
 
+StoryTrigger.displayName = 'StoryTrigger'
+
 const StoryItem = (props) => {
   return (
     <div className="story-content">
@@ -92,6 +94,8 @@ const StoryItem = (props) => {
     </div>
   )
 }
+
+StoryItem.displayName = 'StoryItem'
 
 StoryItem.propTypes = {
   backgroundImage: PropTypes.string,
@@ -118,12 +122,15 @@ class Story extends Component {
     this.trigger = ''
     this.items = []
     React.Children.forEach(children, (child) => {
-      if (child.type.name === 'StoryTrigger') {
+      // console.log(child);
+      if (child.type.displayName === 'StoryTrigger') {
         this.trigger = child
-      } else if (child.type.name === 'StoryItem') {
+      } else if (child.type.displayName === 'StoryItem') {
         this.items.push(child)
       } else {
-        console.error(`Expected child - Story.Item or Story.Trigger, but Received - ${child}`)
+        console.error(`
+          Expected child - Story.Item or Story.Trigger, but Received - ${child.type.displayName}`
+        )
       }
     })
   }
@@ -190,12 +197,12 @@ class Story extends Component {
             ref={el => (this.targetScreen = el)}
           >
           <FullDiv onClick={this.handleClick}>
-            { this.props.progress && <Line 
-              percent={percent} 
+            { this.props.progress && <Line
+              percent={percent}
               strokeWidth={this.props.progressWidth}
-              strokeColor={this.props.progressColor} 
+              strokeColor={this.props.progressColor}
               strokeLinecap={this.props.progressLinecap}
-              trailColor={this.props.progressTrailColor} 
+              trailColor={this.props.progressTrailColor}
               style={progressStyles}
             />}
             <BgDiv backgroundImage={backgroundImage} blur={blur} />
